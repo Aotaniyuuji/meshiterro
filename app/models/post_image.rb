@@ -1,5 +1,12 @@
 class PostImage < ApplicationRecord
-
   has_one_attached :image
   belongs_to :user
+
+  def get_image
+    unless image.attached?
+      file_path = Rails.root.join('app/aseets/images/no_image.jpg')
+      image.attsch(io: File.open(file_path),filename: 'default-image.jpg',content_type: 'image/jpeg')
+    end
+    image
+  end
 end
